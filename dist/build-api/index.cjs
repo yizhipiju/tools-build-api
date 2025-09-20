@@ -772,7 +772,7 @@ function createImportsTemplate(docOptions) {
     const { importRequestFrom = '@/utils/request' } = docOptions;
     const imports = [];
     let types = 'AxiosRequestConfig';
-    let requests = 'request';
+    let requests = 'httpClient';
     if (docOptions.ssr) {
         types += `, RequestContext`;
         requests += `, requestSSR`;
