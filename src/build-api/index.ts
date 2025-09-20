@@ -13,7 +13,9 @@ export interface DocConfig {
   link: string; // 文档链接
   ssr?: boolean | string[]; // 是否生成 SSR 的请求方法
   importRequestFrom?: string; // `request` 方法引入路径
+  importRequestFromPath?: string; // `request` 方法引入路径的绝对路径
   importAxiosTypesFrom?: string; // Axios 类型的引入路径
+  importAxiosTypesFromPath?: string; // Axios 类型的引入路径的绝对路径
   include?: string[]; // 仅生成包含的 tag
   exclude?: string[]; // 排除部分 tag
   urlPrefix?: string; // url 前缀
@@ -69,9 +71,6 @@ const TYPE_NAME_SUFFIXES = {
  * @param docOptions
  */
 function createImportsTemplate(docOptions: DocConfig) {
-  const { importRequestFrom = '@/utils/request' } = docOptions;
-  const imports = [];
-
   let types = 'AxiosRequestConfig';
   let requests = 'httpClient';
 
@@ -79,11 +78,19 @@ function createImportsTemplate(docOptions: DocConfig) {
     types += `, RequestContext`;
     requests += `, requestSSR`;
   }
+  const { 
+    importRequestFrom = '@/utils/request', 
+    importRequestFromPath = 'import type { AxiosRequestConfig } from axios',
+    importAxiosTypesFromPath = `import ${requests} from axios`
+  } = docOptions;
+
+  const imports = [];
+
+ 
 
   imports.push(
-    `import type { ${types} } from '${docOptions.importAxiosTypesFrom || '@frontend/net'}'`,
-    `import { ${requests} } from '${importRequestFrom}'`,
-    ``,
+    `${importRequestFromPath}`,
+    `${importAxiosTypesFromPath}`,
   );
 
   return imports.join('\n');
@@ -281,7 +288,7 @@ export async function generate(
                 .join(', ')} })`
             : //
               // request
-              `  return request.${requestItem.method}${returnType.inApply}(${[
+              `  return httpClient.${requestItem.method}${returnType.inApply}(${[
                 applyArgs.url,
                 applyArgs.data,
                 applyArgs.config,

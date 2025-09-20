@@ -5,7 +5,9 @@ interface DocConfig {
     link: string;
     ssr?: boolean | string[];
     importRequestFrom?: string;
+    importRequestFromPath?: string;
     importAxiosTypesFrom?: string;
+    importAxiosTypesFromPath?: string;
     include?: string[];
     exclude?: string[];
     urlPrefix?: string;

@@ -769,15 +769,13 @@ const TYPE_NAME_SUFFIXES = {
  * @param docOptions
  */
 function createImportsTemplate(docOptions) {
-    const { importRequestFrom = '@/utils/request' } = docOptions;
-    const imports = [];
-    let types = 'AxiosRequestConfig';
     let requests = 'httpClient';
     if (docOptions.ssr) {
-        types += `, RequestContext`;
         requests += `, requestSSR`;
     }
-    imports.push(`import type { ${types} } from '${docOptions.importAxiosTypesFrom || '@frontend/net'}'`, `import { ${requests} } from '${importRequestFrom}'`, ``);
+    const { importRequestFrom = '@/utils/request', importRequestFromPath = 'import type { AxiosRequestConfig } from axios', importAxiosTypesFromPath = `import ${requests} from axios` } = docOptions;
+    const imports = [];
+    imports.push(`${importRequestFromPath}`, `${importAxiosTypesFromPath}`);
     return imports.join('\n');
 }
 /**
@@ -928,7 +926,7 @@ async function generate(outDir, docOptions, doc) {
                                 .join(', ')} })`
                         : //
                             // request
-                            `  return request.${requestItem.method}${returnType.inApply}(${[
+                            `  return httpClient.${requestItem.method}${returnType.inApply}(${[
                                 applyArgs.url,
                                 applyArgs.data,
                                 applyArgs.config,
