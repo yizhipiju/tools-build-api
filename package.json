@@ -1,0 +1,54 @@
+{
+  "name": "jackie-tools-develop",
+  "version": "1.0.0",
+  "description": "开发相关依赖，效率工具脚本",
+  "main": "index.js",
+  "bin": {
+    "jackie_develop": "./postinstall.mjs"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.ts --configPlugin @rollup/plugin-typescript",
+    "prepare": "husky || true",
+    "build:api": "node ./scripts/build-api.mjs",
+    "build:i18n": "node ./scripts/build-i18n.mjs",
+    "build:svg-icons": "node ./scripts/build-svg-icons.mjs"
+  },
+  "exports": {
+    "./build-api": {
+      "import": "./dist/build-api/index.mjs",
+      "require": "./dist/build-api/index.cjs",
+      "types": "./dist/build-api/index.d.ts"
+    },
+    "./build-i18n": {
+      "import": "./dist/build-i18n/index.mjs",
+      "require": "./dist/build-i18n/index.cjs",
+      "types": "./dist/build-i18n/index.d.ts"
+    },
+    "./build-svg-icons": {
+      "import": "./dist/build-svg-icons/index.mjs",
+      "require": "./dist/build-svg-icons/index.cjs",
+      "types": "./dist/build-svg-icons/index.d.ts"
+    }
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/js-yaml": "^4.0.9",
+    "@types/react": "^18.3.3",
+    "next": "^14.1.4",
+    "openapi-types": "^12.1.3",
+    "react": "^18.3.1",
+    "rollup": "^4.14.1",
+    "rollup-plugin-dts": "^6.1.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "change-case": "^5.4.4",
+    "js-yaml": "^4.1.0",
+    "jszip": "^3.10.1",
+    "prettier": "^3.3.2",
+    "svgo": "^3.3.2"
+  }
+}

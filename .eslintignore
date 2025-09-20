@@ -1,0 +1,13 @@
+node_modules
+.yarn
+.next
+.vite
+dist
+examples/apis
+examples/locales
+
+.idea
+.vscode
+.umi
+src/apis
+src/locales

@@ -1,0 +1,13 @@
+image: node:latest
+
+stages:
+  - deploy
+
+publish-npm:
+  stage: deploy
+  script:
+    - echo "npm publish"
+  only:
+    - master
+  tags:
+    - frontend-group-share

@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowImportingTsExtensions": true,
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "jsx": "preserve",
+    "paths": {
+      "@/examples/*": ["./examples/*"]
+    }
+  }
+}
